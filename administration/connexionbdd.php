@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
-$dbname = 'salac';
-$username = 'adminer';
-$password = 'Cs19022005#@#';
+$dbname = 'bd_salac';
+$username = 'myroot';
+$password = 'root123*';
 // Création d'une connexion PDO
 $pdo = new PDO(
     "mysql:host=$host;dbname=$dbname;charset=utf8",
