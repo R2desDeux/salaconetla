@@ -1,3 +1,23 @@
+<?php
+    require "./connexion.php";
+
+    $requeteResidences = $dbname = 'bd_salac';
+
+    $reponse = $pdo->query($requeteResidences);
+
+    $listeResidences = $reponse->fetchall(PDO::FETCH_ASSOC);
+
+
+    if (isset($_GET["page"])) {
+        $pageCourante = $_GET["page"];
+    }
+    else {
+        $pageCourante = "accueil";
+    }
+    ?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,7 +42,7 @@
                 </span>
                 <ul class="navbar-nav me-auto mb-1 ms-1">
                     <li class="nav-item">
-                        <a class="nav-link " href="./index.php?page=accueil">Accueil</a>
+                    <a class="nav-link <?php if ($pageCourante == 'accueil') {echo "active"; } ?>" href="./index.php?page=accueil">Accueil</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./index.php?page=Coordonnees">Coordonnées</a>
@@ -30,10 +50,16 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" href="#" role="button"
                             aria-expanded="false">Résidences</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item active" href="./index.php?page=Ampere">Ampère</a></li>
-                            <li><a class="dropdown-item" href="./index.php?page=coulomb">Coulomb</a></li>
-                            <li><a class="dropdown-item" href="./index.php?page=fresnel">Fresnel</a></li>
+                            <ul class="dropdown-menu">
+                        <?php foreach ($listeResidences as $residenceCourante) { ?>
+                            <li>
+                                <a class="dropdown-item"
+                                    href="./index.php?page=residences&idResidence=
+                                    <?php echo $residenceCourante["idResidence"] ?>">
+                                    <?php echo $residenceCourante["nomResidence"] ?>
+                                </a>
+                            </li>
+                        <?php } ?>
                         </ul>
                         <li class="nav-item">
                         <a class="nav-link" href="./administration/index.php?page=ad_login">Administration</a>
