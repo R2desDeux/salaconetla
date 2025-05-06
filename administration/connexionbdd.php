@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$dbname = 'bd_salac';
+$dbname = 'salac';
 $username = 'myroot';
 $password = 'root123*';
 // Création d'une connexion PDO

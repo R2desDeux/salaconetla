@@ -1,20 +1,19 @@
 <?php
-    require "./connexion.php";
+require "./administration/connexionbdd.php";
 
-    $requeteResidences = $dbname = 'bd_salac';
+$requeteResidences = "SELECT idResidence, nomResidence FROM residences ORDER BY nomResidence;";
 
-    $reponse = $pdo->query($requeteResidences);
+$reponse = $pdo->query($requeteResidences);
 
-    $listeResidences = $reponse->fetchall(PDO::FETCH_ASSOC);
+$listeResidences = $reponse->fetchall(PDO::FETCH_ASSOC);
 
 
-    if (isset($_GET["page"])) {
-        $pageCourante = $_GET["page"];
-    }
-    else {
-        $pageCourante = "accueil";
-    }
-    ?>
+if (isset($_GET["page"])) {
+    $pageCourante = $_GET["page"];
+} else {
+    $pageCourante = "accueil";
+}
+?>
 
 
 
@@ -26,9 +25,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-	<title>location appartement</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <title>location appartement</title>
     <title>Résidence "Ampere"</title>
 </head>
 
@@ -42,7 +41,9 @@
                 </span>
                 <ul class="navbar-nav me-auto mb-1 ms-1">
                     <li class="nav-item">
-                    <a class="nav-link <?php if ($pageCourante == 'accueil') {echo "active"; } ?>" href="./index.php?page=accueil">Accueil</a>
+                        <a class="nav-link <?php if ($pageCourante == 'accueil') {
+                                                echo "active";
+                                            } ?>" href="./index.php?page=accueil">Accueil</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./index.php?page=Coordonnees">Coordonnées</a>
@@ -50,22 +51,20 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" href="#" role="button"
                             aria-expanded="false">Résidences</a>
-                            <ul class="dropdown-menu">
-                        <?php foreach ($listeResidences as $residenceCourante) { ?>
-                            <li>
-                                <a class="dropdown-item"
-                                    href="./index.php?page=residences&idResidence=
-                                    <?php echo $residenceCourante["idResidence"] ?>">
-                                    <?php echo $residenceCourante["nomResidence"] ?>
-                                </a>
-                            </li>
-                        <?php } ?>
+                        <ul class="dropdown-menu">
+                            <?php foreach ($listeResidences as $residenceCourante) { ?>
+                                <li>
+                                    <a class="dropdown-item"
+                                        href="./index.php?page=residences&idResidence=<?php echo $residenceCourante["idResidence"] ?>"> <?php echo $residenceCourante["nomResidence"] ?>
+                                    </a>
+                                </li>
+                            <?php } ?>
                         </ul>
-                        <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="./administration/index.php?page=ad_login">Administration</a>
-                        </li>
+                    </li>
 
-                        
+
                     </li>
                 </ul>
             </div>
